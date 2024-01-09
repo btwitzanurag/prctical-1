@@ -1,0 +1,229 @@
+// backend Q2//
+class Ascending 
+{
+    int a1[] , size ; 
+    Ascending( int n )
+    {
+        this.size = n ; 
+        this.a1 = new int[this.size] ; 
+    }
+    void displayList()
+    {
+        System.out.println("The List " ) ; 
+        for ( int i = 0 ; i < this.size ; i ++ )
+        System.out.println(this.a1[i]) ; 
+    }
+    Ascending merge(Ascending mat)
+    {
+        Ascending r = new Ascending(this.size+mat.size) ; 
+        int c = 0 ; 
+        for ( int i = 0 ; i < this.size ; i ++ )
+        {
+        r.a1[c] = this.a1[i] ; 
+        c ++ ; 
+        }
+        for ( int i = 0 ; i < mat.size ; i ++ )
+        {
+            int t = mat.a1[i] ;
+            boolean f = false ; 
+            for ( int j = 0 ; j < this.size ; j ++ )
+                if ( t == this.a1[j] )
+                {
+                    f = true ; 
+                    break ; 
+                }
+                if ( !f )
+                {
+            r.a1[c] = t ;
+            c ++ ;
+            }
+        }
+        for ( int i = 0 ; i < c - 1 ; i ++ )
+        {
+            for ( int j = 0; j < c - i -  1 ; j ++ )
+            {
+                if ( r.a1[j] > r.a1[j+1] )
+                {
+                    int t = r.a1[j] ; 
+                    r.a1[j] = r.a1[j+1] ; 
+                    r.a1[j+1] = t ; 
+                }
+            }
+        }
+        r.size = c ; 
+        return r ; 
+    }
+}
+
+//Frontend Q2//
+import java.util.* ; 
+class f2
+{
+    Scanner in = new Scanner(System.in) ;
+    int[] input(  int s )
+    {
+        int r[] = new int[s] ; 
+        System.out.println("Enter the elements " ) ;
+        for (int i = 0 ; i < s ; i ++ )
+        r[i] = in.nextInt() ; 
+        return r ; 
+    }
+    void main()
+    { 
+        System.out.println("Enter size of both the arrays " ) ; 
+        int s[] = new int[2] ; 
+        for ( int i = 0; i < 2 ; i ++ )
+        s[i] = in.nextInt() ;
+        Ascending ob[] = new Ascending[2] ; 
+        for ( int i = 0 ; i < 2 ; i ++ )
+        {
+            ob[i] = new Ascending(s[i] ) ;
+            ob[i].a1 = input(s[i]) ; 
+            ob[i].displayList() ; 
+        }
+        Ascending r = ob[1].merge(ob[0]) ;
+        System.out.println("Merged List " ) ; 
+        for ( int i = 0; i < r.size ; i ++ ) 
+        System.out.println(r.a1[i] ) ; 
+    }
+}
+
+// Backend Q3//
+import java.util.* ;
+class sum_matrix 
+{
+    int mat[][] ,  m ,  n ; 
+    Scanner in = new Scanner(System.in) ;
+    sum_matrix()
+    {
+        this.m = 50 ; 
+        this.n = 50 ; 
+        this.mat = new int[this.m][this.n] ;
+    }
+    void read_row_column( int x  , int y )
+    {
+        this.m = x ; 
+        this.n = y ; 
+    }
+    void readmatrix()
+    {
+        System.out.println("Enter the elements ") ; 
+        for ( int i = 0 ;i < this.m ; i ++ )
+        for ( int j = 0 ; j < this.n ; j ++ )
+        this.mat[i][j] = in.nextInt() ; 
+    }
+    void show_mat()
+    {
+        System.out.println("The Matrix" ) ; 
+        for ( int i = 0; i < this.m ; i ++ )
+        {
+        for ( int j = 0 ; j < this.n ; j ++ )
+        System.out.print(this.mat[i][j] + " " ) ;
+        System.out.println() ; 
+        }
+    }
+    void summatrix()
+    { 
+        for ( int i = 0 ; i < this.m ; i ++ ) 
+        {
+            int s = 0 ; 
+            for ( int j = 0 ; j < this.n ; j ++ )
+                s += this.mat[i][j] ;  
+            this.mat[i][this.n] = s ; 
+        }
+        for ( int i = 0 ; i < this.n ; i ++ ) 
+        {
+            int s = 0 ; 
+            for ( int j = 0 ; j < this.m ; j ++ )
+                s += this.mat[j][i] ;  
+            this.mat[this.m][i] = s ; 
+        }
+        System.out.println("The Sum Matrix " ) ; 
+        for ( int i = 0 ; i <= this.m ; i ++ )
+        {
+            for ( int j = 0 ; j <= this.n ; j ++ )
+            {
+                if ( i == this.m &&  j == this.n )
+                continue ; 
+                System.out.print(this.mat[i][j] + " " ) ;
+            }
+            System.out.println() ; 
+        }
+    }
+}
+
+//frontend Q3//
+
+import java.util.* ; 
+class f3
+{
+    void main()
+    {
+        Scanner in = new Scanner(System.in) ; 
+        sum_matrix ob = new sum_matrix() ; 
+        System.out.println("Enter size " ) ; 
+        int m = in.nextInt() ; 
+        int n = in.nextInt() ; 
+        ob.read_row_column(m , n ) ; 
+        ob.readmatrix() ; 
+        ob.show_mat() ; 
+        ob.summatrix() ; 
+    }
+}
+
+// frontend Q4//
+class f4
+{
+    void main()
+    {
+        q4 ob = new q4() ; 
+        ob.read() ; 
+        ob.sn() ;
+    }
+}
+
+//backend Q4//
+import java.util.* ; 
+class q4
+{
+    int n ; 
+    void read()
+    {
+        Scanner in = new Scanner(System.in) ;
+        System.out.print("Enter number = " ) ; 
+        this.n = in.nextInt() ; 
+    }
+    int sp()
+    {
+        int s = 0 , a = this.n; 
+        int i = 2 ; 
+        while ( i < this.n )
+        {
+            if ( a % i == 0 )
+            {
+                s+= this.sd(i); 
+                a = a / i ;
+            }
+            else
+            i ++ ; 
+        }
+      return s ; 
+    }
+    void sn()
+    {
+        if ( this.sd(this.n) == this.sp() )
+        System.out.println("Smith Number " ) ; 
+        else
+        System.out.println("Not a Smith Number " ) ; 
+    }
+    int sd( int n )
+    {
+        int s = 0 ; 
+        while ( n != 0 )
+        {
+            s += n % 10 ; 
+            n /= 10 ; 
+        }
+        return s ; 
+    }
+}
